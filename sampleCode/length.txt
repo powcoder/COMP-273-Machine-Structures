@@ -1,0 +1,49 @@
+https://powcoder.com
+代写代考加微信 powcoder
+Assignment Project Exam Help
+Add WeChat powcoder
+https://powcoder.com
+代写代考加微信 powcoder
+Assignment Project Exam Help
+Add WeChat powcoder
+# The snippet of code below contains a main function which calls the subroutine ``length''
+# and then prints an integer result. The subroutine takes a single argument, which is the address
+# of a NULL terminated string, and# generates a return value, which is the length of the string.
+# Using appropriate register conventions complete the code for the subroutine ``length'', providing
+# brief comments as well.
+
+
+       .data
+str:   .asciiz "This is a test string."
+
+       .text
+       .globl main
+
+main:  la $a0,str
+       jal length               # call to the subroutine length
+
+       add $s1,$zero,$v0
+
+       li $v0,1                 # system call code for print_int
+       add $a0, $zero, $s1
+       syscall
+
+       j Exit
+
+
+# The subroutine ``length'' begins here:
+	
+length: add $v0,$zero,$zero	# use $v0 as the counter and initialize it
+
+loop:	lb $t0,0($a0)		# load the ascii value of a character into $t0
+	beq $t0,$zero,done	# reached the NULL character so we are done
+	addi $v0,$v0,1		# increment count
+	addi $a0,$a0,1		# advance pointer by 1
+	j loop			# continue loop
+
+
+done:	jr $ra	
+
+
+Exit:	li $v0,10
+	syscall
